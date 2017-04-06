@@ -1,0 +1,28 @@
+name: ServerGoverner
+main: org.teamhydroxide.servergoverner.Main
+version: 1.0
+website: http://teamhydroxide.org
+
+commands:
+   quit:
+      description: Leave the game.
+      usage: /<command>
+      aliases: [q, leave]
+   home:
+      description: Teleport to your home bed.
+      usage: /<command>
+      aliases: [h]
+   data:
+      description: Provides information about a given player.
+      usage: /<command>
+      aliases: [playerinfo]
+   sg:
+      description: ServerGoverner console.
+      usage: /<command>
+      aliases: [server, governer, govnah]
+   local:
+      description: local chat
+      usage: /<command>   
+   friend:
+      description: Friend system
+      usage: /command                                                                                                                                                                                                      

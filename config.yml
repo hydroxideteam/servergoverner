@@ -1,0 +1,21 @@
+### ServerGoverner Configuration File ###
+
+## Bans, Jailing, Muting, etc. ##
+
+
+defaultbantime: -1 # minutes player gets banned by default
+
+defaultjailtime: 30 # minutes player gets jailed by default
+canjailedplayerbreak: false # is a jailed player allowed to remove blocks? (NOTE: if you have plugin like worldguard you should enable this)
+jailposition: # the position a jailed player will be teleported to
+  xpos: 5
+  ypos: 155
+  zpos: 555
+mutejailedplayers: false # are jailed players muted?
+
+defaultmutetime: 5 # minutes player gets muted by default
+
+cangodmodeattack: false # can players in godmode attack other players
+
+
+# For the values above, use -1 if you want the default time to be forever.
