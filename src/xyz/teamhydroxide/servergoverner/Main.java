@@ -10,6 +10,7 @@ import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.commands.GovernerConsole;
 import xyz.teamhydroxide.servergoverner.commands.PlayerAddons;
 import xyz.teamhydroxide.servergoverner.friends.FriendCommand;
+import xyz.teamhydroxide.servergoverner.friends.FriendEvents;
 import xyz.teamhydroxide.utils.StringManipulation;
 
 public class Main extends JavaPlugin{
@@ -24,6 +25,7 @@ public class Main extends JavaPlugin{
 		getLogger().info("[ServerGoverner] Logging on...");
 		
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+		getServer().getPluginManager().registerEvents(new FriendEvents(), this);
 		
 		getCommand("friend").setExecutor(new FriendCommand());
 		

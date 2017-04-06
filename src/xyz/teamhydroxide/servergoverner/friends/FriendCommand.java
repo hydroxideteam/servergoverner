@@ -37,9 +37,9 @@ public class FriendCommand implements CommandExecutor {
 			Player player = (Player) sender;
 			
 			
-			if (args[0].equalsIgnoreCase("add") && args.length > 2) {
+			if (args[0].equalsIgnoreCase("add") && args.length >= 2) {
 				
-				Player friend = Bukkit.getServer().getPlayer(args[1]);
+				Player friend = (Player) Bukkit.getServer().getPlayer(args[1]);
 				
 				if (friend == null) {
 					player.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: Player not found!");
@@ -64,7 +64,7 @@ public class FriendCommand implements CommandExecutor {
 				return true;
 			}
 			
-			if (args[0].equalsIgnoreCase("remove") && (args.length > 2) ) {
+			if (args[0].equalsIgnoreCase("remove") && args.length >= 2 ) {
 				Player friend = Bukkit.getServer().getPlayer(args[1]);
 				if (friend == null) {
 					player.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: Player not found!");
@@ -93,6 +93,7 @@ public class FriendCommand implements CommandExecutor {
 					player.sendMessage(ChatColor.GRAY+friend.getPlayerListName());
 					
 				}
+				return true;
 				
 				// loop it
 				
