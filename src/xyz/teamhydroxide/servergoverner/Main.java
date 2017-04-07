@@ -24,11 +24,20 @@ public class Main extends JavaPlugin{
 		plugin = this;
 		getLogger().info("Logging on...");
 		
+		// Event Handlers
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
 		getServer().getPluginManager().registerEvents(new FriendEvents(), this);
 		
+		
+		// Command Executors
 		getCommand("friend").setExecutor(new FriendCommand());
-		getCommand("lag").setExecutor(new PlusCommands());
+		
+		PlusCommands plusCommands = new PlusCommands();
+		getCommand("lag").setExecutor(plusCommands);
+		getCommand("quit").setExecutor(plusCommands);
+		getCommand("home").setExecutor(plusCommands);
+		getCommand("local").setExecutor(plusCommands);
+		getCommand("data").setExecutor(plusCommands);
 		
 		Timer.minute();
 		saveDefaultConfig();
@@ -40,17 +49,7 @@ public class Main extends JavaPlugin{
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (sender instanceof Player) {
-			Player player = (Player) sender;
-			
-			if (cmd.getName().equalsIgnoreCase("quit")) { PlayerAddons.quit(player); }
-			if (cmd.getName().equalsIgnoreCase("home")) { PlayerAddons.home(player); }
-			if (cmd.getName().equalsIgnoreCase("data")) { PlayerAddons.data(player); }
-			if (cmd.getName().equalsIgnoreCase("local")) { PlayerAddons.localchat(player, StringManipulation.buildFromArray(args, 0)); }
-			if (cmd.getName().equalsIgnoreCase("friend")) { }
-		}
-		
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
 		if (cmd.getName().equalsIgnoreCase("sg")) {
 			GovernerConsole.get(sender, cmd, label, args);
 		}
