@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.commands.GovernerConsole;
-import xyz.teamhydroxide.servergoverner.commands.PlayerAddons;
 import xyz.teamhydroxide.servergoverner.friends.FriendCommand;
 import xyz.teamhydroxide.servergoverner.friends.FriendEvents;
 import xyz.teamhydroxide.servergoverner.pluscommands.PlusCommands;

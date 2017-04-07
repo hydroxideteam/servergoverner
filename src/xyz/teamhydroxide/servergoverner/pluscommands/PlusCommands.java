@@ -1,10 +1,16 @@
 package xyz.teamhydroxide.servergoverner.pluscommands;
 
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import xyz.teamhydroxide.servergoverner.Main;
+import xyz.teamhydroxide.utils.StringManipulation;
 
 public class PlusCommands implements CommandExecutor {
 	
@@ -16,13 +22,60 @@ public class PlusCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		// TODO Auto-generated method stub
 		
-		if (cmd.getName().equalsIgnoreCase("lag")) {
+		// Player-Only commands
+		if (sender instanceof Player) {
+			Player player = (Player) sender;
 			
+			// leaving server via command
+			if (cmd.getName().equalsIgnoreCase("quit")) { player.kickPlayer("You have left the server."); }
 			
-			sender.sendMessage(Main.SGprefix+"Memory Usage (In Megabytes):"+(Runtime.getRuntime().freeMemory()/1000000)+"mb / "+(Runtime.getRuntime().totalMemory()/1000000)+"mb");
-			return true;
+			// teleporting to bed
+			if (cmd.getName().equalsIgnoreCase("home")) {
+				Location bedLoc = player.getBedSpawnLocation();
+				
+				if (bedLoc != null) {
+					player.teleport(bedLoc);
+					player.playSound(bedLoc, Sound.ENTITY_ENDERMEN_TELEPORT, 4, 1);
+					player.sendMessage(ChatColor.DARK_GRAY+"You have been teleported.");
+				} else {
+					player.playSound(bedLoc, Sound.ENTITY_ENDERMEN_HURT, 4, 1);
+					player.sendMessage(ChatColor.DARK_GRAY+"Your bed has been missing or obstructed");
+				}
+			}
+			
+			// dump data about player
+			if (cmd.getName().equalsIgnoreCase("data")) {
+				Location position = player.getLocation();
+				double health = player.getHealth();
+				
+				player.sendMessage(ChatColor.RED+"Position: "+position.getBlockX()+", "+position.getBlockY()+", "+position.getBlockZ());
+				player.sendMessage(ChatColor.RED+"Health: "+health);
+			}
+			
+			// local chat
+			if (cmd.getName().equalsIgnoreCase("local")) {
+				String message = StringManipulation.buildFromArray(args, 0);
+				double distance = Main.plugin.getConfig().getDouble("localchatdistance");
+				for (Player other : player.getWorld().getPlayers()) {
+					if (other.getLocation().distance(player.getLocation()) <= distance) {
+						other.sendMessage(ChatColor.YELLOW+"Local "+ChatColor.WHITE+"<"+player.getDisplayName()+"> "+message);
+					}
+				}
+			}
+			
+		} else {
+			sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: Console cannot execute this command!");
+			
 		}
-		return false;
+		
+		
+		// Either-Way commands
+		
+		// Server resource data
+		if (cmd.getName().equalsIgnoreCase("lag")) {
+			sender.sendMessage(Main.SGprefix+"Memory Usage (In Megabytes):"+(Runtime.getRuntime().freeMemory()/1000000)+"mb / "+(Runtime.getRuntime().totalMemory()/1000000)+"mb");
+		}
+		return true;
 	}
 
 }
