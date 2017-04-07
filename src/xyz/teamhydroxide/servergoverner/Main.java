@@ -1,6 +1,5 @@
 package xyz.teamhydroxide.servergoverner;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,6 +10,7 @@ import xyz.teamhydroxide.servergoverner.commands.GovernerConsole;
 import xyz.teamhydroxide.servergoverner.commands.PlayerAddons;
 import xyz.teamhydroxide.servergoverner.friends.FriendCommand;
 import xyz.teamhydroxide.servergoverner.friends.FriendEvents;
+import xyz.teamhydroxide.servergoverner.pluscommands.PlusCommands;
 import xyz.teamhydroxide.utils.StringManipulation;
 
 public class Main extends JavaPlugin{
@@ -22,12 +22,13 @@ public class Main extends JavaPlugin{
 	@Override
 	public void onEnable() {
 		plugin = this;
-		getLogger().info("[ServerGoverner] Logging on...");
+		getLogger().info("Logging on...");
 		
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
 		getServer().getPluginManager().registerEvents(new FriendEvents(), this);
 		
 		getCommand("friend").setExecutor(new FriendCommand());
+		getCommand("lag").setExecutor(new PlusCommands());
 		
 		Timer.minute();
 		saveDefaultConfig();
@@ -35,7 +36,7 @@ public class Main extends JavaPlugin{
 	
 	@Override
 	public void onDisable() {
-		getLogger().info("[ServerGoverner] Logging off...");
+		getLogger().info("Logging off...");
 	}
 	
 	@Override
