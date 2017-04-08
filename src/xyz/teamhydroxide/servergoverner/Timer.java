@@ -11,7 +11,7 @@ public class Timer {
 		Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(Main.plugin, new Runnable() {
 			
 			public void run() {
-				YamlConfiguration list = YamlData.load();
+				YamlConfiguration list = YamlData.load("bans");
 				
 				for (String key : list.getKeys(false)) {
 					list.set(key+".time", list.getInt(key+".time")-1);
@@ -23,7 +23,7 @@ public class Timer {
 					}
 				}
 				
-				YamlData.save(list);
+				YamlData.save("bans", list);
 				//for ()
 			}
 		}, 1200, 1200);

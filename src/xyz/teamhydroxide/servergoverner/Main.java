@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.friends.FriendCommand;
 import xyz.teamhydroxide.servergoverner.friends.FriendEvents;
-import xyz.teamhydroxide.servergoverner.moderation.GovernerConsole;
+import xyz.teamhydroxide.servergoverner.moderation.GCCommands;
 import xyz.teamhydroxide.servergoverner.pluscommands.PlusCommands;
 import xyz.teamhydroxide.utils.StringManipulation;
 
@@ -30,13 +30,24 @@ public class Main extends JavaPlugin{
 		
 		// Command Executors
 		getCommand("friend").setExecutor(new FriendCommand());
+		getCommand("sg").setExecutor(new GCCommands());
 		
 		PlusCommands plusCommands = new PlusCommands();
+		GCCommands gcCommands = new GCCommands();
+		
 		getCommand("lag").setExecutor(plusCommands);
 		getCommand("quit").setExecutor(plusCommands);
 		getCommand("home").setExecutor(plusCommands);
 		getCommand("local").setExecutor(plusCommands);
 		getCommand("data").setExecutor(plusCommands);
+		
+		getCommand("sg").setExecutor(gcCommands);
+		getCommand("ban").setExecutor(gcCommands);
+		getCommand("kick").setExecutor(gcCommands);
+		getCommand("unban").setExecutor(gcCommands);
+		getCommand("god").setExecutor(gcCommands);
+		getCommand("mute").setExecutor(gcCommands);
+		getCommand("jail").setExecutor(gcCommands);
 		
 		Timer.minute();
 		saveDefaultConfig();
@@ -45,13 +56,5 @@ public class Main extends JavaPlugin{
 	@Override
 	public void onDisable() {
 		getLogger().info("Logging off...");
-	}
-	
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
-		if (cmd.getName().equalsIgnoreCase("sg")) {
-			GovernerConsole.get(sender, cmd, label, args);
-		}
-		return true;
 	}
 }

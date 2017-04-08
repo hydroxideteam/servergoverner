@@ -115,23 +115,6 @@ public class YamlData {
 	
 	public static void unbanPlayer(String name, CommandSender banner) {
 		
-		OfflinePlayer victim = Bukkit.getOfflinePlayer(name);
 		
-		if (victim != null) {
-			if (isPlayerBanned(victim.getUniqueId())) {
-				YamlConfiguration list = load("bans");
-				
-				list.set(victim.getUniqueId().toString(), null);
-				
-				save("bans", list);
-				Bukkit.broadcastMessage(Main.SGprefix+victim.getName()+" has been unbanned");	
-				
-			} else {
-				// there are a lot of gay people in Cowboy Bebop
-			banner.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getName()+" not found in ban records.");
-			}
-		} else {
-			banner.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player not found.");
-		}
 	}
 }

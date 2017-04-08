@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,8 +21,6 @@ public class FriendCommand implements CommandExecutor {
 	public FriendCommand() {
 		
 	}
-	
-	
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -90,8 +89,8 @@ public class FriendCommand implements CommandExecutor {
 				for (String friendUUID : friendlist) {
 					
 					
-					Player friend = Bukkit.getServer().getPlayer(UUID.fromString(friendUUID));
-					player.sendMessage(ChatColor.GRAY+friend.getPlayerListName());
+					OfflinePlayer friend = Bukkit.getServer().getOfflinePlayer(UUID.fromString(friendUUID));
+					player.sendMessage(ChatColor.GRAY+friend.getName());
 					
 				}
 				return true;

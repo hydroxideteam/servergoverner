@@ -2,31 +2,65 @@ name: ServerGoverner
 main: xyz.teamhydroxide.servergoverner.Main
 version: 1.0
 website: http://teamhydroxide.org
+authors: [MadScientist, Xenon]
+
+anchored_content: &errmsg "[SG] ERROR: invalid syntax, see /<command>!"
 
 commands:
+
+  sg:
+    description: General Data about the plugin
+    usage: *errmsg
+    permission: servergoverner
+  ban:
+    description: Banning players
+    usage: *errmsg
+    permission: servergoverner.ban
+  unban:
+    description: Un-Banning players
+    usage: *errmsg
+    permission: servergoverner.ban
+  kick:
+    description: Removing players from the server
+    usage: *errmsg
+    permission: servergoverner.kick
+  mute:
+    description: Muting Players
+    usage: *errmsg
+    permission: servergoverner.mute
+  jail:
+    description: Jailing Players
+    usage: *errmsg
+    permission: servergoverner.jail
+  god:
+    description: Godding Players
+    usage: *errmsg
+    permission: servergoverner.god
+
+
   quit:
     description: Leave the game.
-    usage: /<command>
+    usage: *errmsg
     aliases: [q, leave]
   home:
     description: Teleport to your home bed.
-    usage: /<command>
+    usage: *errmsg
     aliases: [h]
   data:
     description: Provides information about a given player.
-    usage: /<command>
+    usage: *errmsg
     aliases: [playerinfo]
   sg:
     description: ServerGoverner console.
-    usage: /<command>
+    usage: *errmsg
     aliases: [server, governer, govnah]
   local:
     description: local chat
-    usage: /<command>   
+    usage: *errmsg
      
   friend:
     description: Friend system
-    usage: /command                                                                                                                                                                                                      
+    usage: *errmsg
   lag:
     description: Prints data about the server.
-    usage: /command
+    usage: *errmsg
