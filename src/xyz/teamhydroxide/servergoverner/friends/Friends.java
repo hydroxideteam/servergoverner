@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import xyz.teamhydroxide.servergoverner.Main;
+import xyz.teamhydroxide.servergoverner.persistance.YamlData;
 
 public class Friends {
 	
@@ -17,7 +18,7 @@ public class Friends {
 	
 	// checks if player has 'friend' on their friendlist
 	public static boolean isPlayerFriended(Player player, Player friend) {
-		YamlConfiguration list = DataHandler.load();
+		YamlConfiguration list = YamlData.load("friendlist");
 		List<String> friendlist = list.getStringList(player.getUniqueId()+".list");
 		
 		if (friendlist.contains(friend.getUniqueId().toString())) {

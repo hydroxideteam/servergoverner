@@ -3,7 +3,7 @@ package xyz.teamhydroxide.servergoverner;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import xyz.teamhydroxide.servergoverner.persistance.Bans;
+import xyz.teamhydroxide.servergoverner.persistance.YamlData;
 
 public class Timer {
 	@SuppressWarnings("deprecation")
@@ -11,7 +11,7 @@ public class Timer {
 		Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(Main.plugin, new Runnable() {
 			
 			public void run() {
-				YamlConfiguration list = Bans.load();
+				YamlConfiguration list = YamlData.load();
 				
 				for (String key : list.getKeys(false)) {
 					list.set(key+".time", list.getInt(key+".time")-1);
@@ -23,7 +23,7 @@ public class Timer {
 					}
 				}
 				
-				Bans.save(list);
+				YamlData.save(list);
 				//for ()
 			}
 		}, 1200, 1200);
