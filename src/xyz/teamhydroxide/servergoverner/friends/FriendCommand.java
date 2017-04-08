@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.Main;
+import xyz.teamhydroxide.servergoverner.persistance.YamlData;
 
 // this class recieves and handles '/friend' commands
 public class FriendCommand implements CommandExecutor {
@@ -44,7 +45,7 @@ public class FriendCommand implements CommandExecutor {
 				if (friend == null) {
 					player.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: Player not found!");
 				} else {
-					YamlConfiguration list = DataHandler.load();
+					YamlConfiguration list = YamlData.load("friendlist");
 					
 					List<String> friendlist = list.getStringList(player.getUniqueId()+".list");
 					
@@ -56,7 +57,7 @@ public class FriendCommand implements CommandExecutor {
 						friendlist.add(friend.getUniqueId().toString());
 						
 						list.set(player.getUniqueId()+".list", friendlist);
-						DataHandler.save(list);
+						YamlData.save("friendlist", list);
 					}
 					
 				}
@@ -69,7 +70,7 @@ public class FriendCommand implements CommandExecutor {
 				if (friend == null) {
 					player.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: Player not found!");
 				} else {
-					YamlConfiguration list = DataHandler.load();
+					YamlConfiguration list = YamlData.load("friendlist");
 					List<String> friendlist = list.getStringList(player.getUniqueId()+".list");
 					if (friendlist.contains(friend.getUniqueId())); {
 							friendlist.remove(friend);
@@ -82,7 +83,7 @@ public class FriendCommand implements CommandExecutor {
 			// give the sender a list of their friends
 			if (args[0].equalsIgnoreCase("list")) {
 				// load configuration into a YamlConfiguration
-				YamlConfiguration list = DataHandler.load();
+				YamlConfiguration list = YamlData.load("friendlist");
 				
 				List<String> friendlist = list.getStringList(player.getUniqueId()+".list");
 				// get a list<string> from it

@@ -13,20 +13,20 @@ import org.bukkit.entity.Player;
 
 import xyz.teamhydroxide.servergoverner.Main;
 
-public class Bans {
-	public static YamlConfiguration load() {
-		File f = new File(Main.plugin.getDataFolder()+"/bans.yml");
+public class YamlData {
+	public static YamlConfiguration load(String filename) {
+		File f = new File(Main.plugin.getDataFolder()+"/"+filename+".yml");
 		
 		YamlConfiguration bans = YamlConfiguration.loadConfiguration(f);
 		return bans;
 	}
 	
 	
-	public static void save(YamlConfiguration bans) {
-		File f = new File(Main.plugin.getDataFolder()+"/bans.yml");
+	public static void save(String filename, YamlConfiguration saveList) {
+		File f = new File(Main.plugin.getDataFolder()+"/"+filename+".yml");
 		
 		try {
-			bans.save(f);
+			saveList.save(f);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +37,7 @@ public class Bans {
 	
 	public static boolean isPlayerBanned(UUID id) {
 		
-		YamlConfiguration banlist = load();
+		YamlConfiguration banlist = load("bans");
 		
 		if (banlist.contains(id.toString())) {
 			return true;
@@ -72,13 +72,13 @@ public class Bans {
 				banner.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getDisplayName()+"is already banned.");
 			} else {
 				
-				YamlConfiguration list = load();
+				YamlConfiguration list = load("bans");
 				
 				list.set(victim.getUniqueId().toString()+".reason", reason);
 				list.set(victim.getUniqueId().toString()+".time", minutes);
 				list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
 				
-				save(list);
+				save("bans", list);
 				Bukkit.broadcastMessage(Main.SGprefix+victim.getDisplayName()+" has been banned for "+minutes+" minute(s) for "+reason);	
 				victim.kickPlayer(ChatColor.RED+"You have been banned for "+minutes+" minute(s) for "+reason);	
 			}
@@ -95,14 +95,14 @@ public class Bans {
 				banner.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getDisplayName()+"is already banned.");
 			} else {
 				// there are a lot of gay people in Cowboy Bebop
-				YamlConfiguration list = load();
+				YamlConfiguration list = load("bans");
 				
 				list.set(victim.getUniqueId().toString()+".reason", reason);
 				list.set(victim.getUniqueId().toString()+".time", -1);
 				list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
 				
 				
-				save(list);
+				save("bans", list);
 				Bukkit.broadcastMessage(Main.SGprefix+victim.getDisplayName()+" has been permanently banned for "+reason);	
 				victim.kickPlayer(ChatColor.RED+"You have been permanently banned for "+reason);
 			}
@@ -119,11 +119,11 @@ public class Bans {
 		
 		if (victim != null) {
 			if (isPlayerBanned(victim.getUniqueId())) {
-				YamlConfiguration list = load();
+				YamlConfiguration list = load("bans");
 				
 				list.set(victim.getUniqueId().toString(), null);
 				
-				save(list);
+				save("bans", list);
 				Bukkit.broadcastMessage(Main.SGprefix+victim.getName()+" has been unbanned");	
 				
 			} else {

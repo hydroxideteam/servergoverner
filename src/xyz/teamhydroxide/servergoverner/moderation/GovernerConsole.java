@@ -1,4 +1,4 @@
-package xyz.teamhydroxide.servergoverner.commands;
+package xyz.teamhydroxide.servergoverner.moderation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.Main;
-import xyz.teamhydroxide.servergoverner.persistance.Bans;
+import xyz.teamhydroxide.servergoverner.persistance.YamlData;
 import xyz.teamhydroxide.utils.StringManipulation;
 
 public class GovernerConsole {
@@ -54,12 +54,13 @@ public class GovernerConsole {
 					
 					if (args.length == 1) {
 						sender.sendMessage(Main.SGprefix+"Banning of users.");
-						sender.sendMessage(ChatColor.GRAY+"Usage: /sg ban <username> <minutes> <reason> OR /sg ban <username> <reason>");
+						sender.sendMessage(ChatColor.GRAY+"Usage: /sg ban <username> <timeformat> <reason> OR /sg ban <username> <reason>");
+						sender.sendMessage(ChatColor.GRAY+"For info on time formatting, see: /sg info time");
 					} else if ( args.length >= 3 && StringManipulation.isInt(args[2]) == false) {
-						Bans.banPlayer(args[1], StringManipulation.buildFromArray(args, 2), sender);
+						YamlData.banPlayer(args[1], StringManipulation.buildFromArray(args, 2), sender);
 						
 					} else if (args.length >= 4) {
-						Bans.banPlayer(args[1], StringManipulation.buildFromArray(args, 3), Integer.parseInt(args[2]), sender);
+						YamlData.banPlayer(args[1], StringManipulation.buildFromArray(args, 3), Integer.parseInt(args[2]), sender);
 					}
 					
 				}
@@ -69,14 +70,15 @@ public class GovernerConsole {
 						sender.sendMessage(Main.SGprefix+"Un-Banning of users.");
 						sender.sendMessage(ChatColor.GRAY+" Usage: /sg unban <username>");
 					} else {
-						Bans.unbanPlayer(args[1], sender);
+						YamlData.unbanPlayer(args[1], sender);
 					}
 				}
 				
 				if (args[0].equalsIgnoreCase("jail")) {
 					if (args.length == 1) {
 						sender.sendMessage(Main.SGprefix+"Jailing of users.");
-						sender.sendMessage(ChatColor.GRAY+"Usage: /sg jail <username> [minutes]");
+						sender.sendMessage(ChatColor.GRAY+"Usage: /sg jail <username> [timeformat]");
+						sender.sendMessage(ChatColor.GRAY+"For info on time formatting, see: /sg info time");
 						sender.sendMessage(ChatColor.GRAY+"Server Admins, there's stuff in the config.yml about jailing you should read.");
 					} else {
 						
@@ -86,7 +88,8 @@ public class GovernerConsole {
 				if (args[0].equalsIgnoreCase("mute")) {
 					if (args.length == 1) {
 						sender.sendMessage(Main.SGprefix+"Muting of users.");
-						sender.sendMessage(ChatColor.GRAY+"Usage: /sg mute <username> [minutes]");
+						sender.sendMessage(ChatColor.GRAY+"Usage: /sg mute <username> [timeformat]");
+						sender.sendMessage(ChatColor.GRAY+"For info on time formatting, see: /sg info time");
 					} else {
 						
 					}
