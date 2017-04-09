@@ -31,17 +31,4 @@ public class StringManipulation {
 	    }
 	    return true;
 	}
-	
-	public static long parseTime(String str) {
-		SimpleDateFormat f = new SimpleDateFormat("d'd'k'h'm'm's's'");
-	    Date date;
-		try {
-			date = f.parse(str);
-			return (date.getTime()/1000);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    return 0;
-	}
 }

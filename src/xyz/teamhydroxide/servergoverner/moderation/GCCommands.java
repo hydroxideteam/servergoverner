@@ -12,6 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.Main;
 import xyz.teamhydroxide.servergoverner.persistance.YamlData;
 import xyz.teamhydroxide.utils.StringManipulation;
+import xyz.teamhydroxide.utils.TimeParser;
 
 public class GCCommands implements CommandExecutor {
 
@@ -39,13 +40,42 @@ public class GCCommands implements CommandExecutor {
 	private void ban(CommandSender sender, String[] args) {
 		if (args.length == 0) {
 			sender.sendMessage(Main.SGprefix+"Banning of users.");
-			sender.sendMessage(ChatColor.GRAY+"Usage: /sg ban <username> <timeformat> <reason> OR /sg ban <username> <reason>");
+			sender.sendMessage(ChatColor.GRAY+"Usage: /sg ban <username> <timeformat> <reason> ");
 			sender.sendMessage(ChatColor.GRAY+"For info on time formatting, see: /sg info time");
-		} else if ( args.length >= 2 && StringManipulation.isInt(args[1]) == false) {
-			YamlData.banPlayer(args[0], StringManipulation.buildFromArray(args, 1), sender);
-
 		} else if (args.length >= 3) {
-			YamlData.banPlayer(args[0], StringManipulation.buildFromArray(args, 2), Integer.parseInt(args[1]), sender);
+			Player victim = Bukkit.getServer().getPlayer(args[0]);
+			String reason = StringManipulation.buildFromArray(args, 2);
+			String timeStr = args[1];
+			int timeInSeconds = (int)(TimeParser.parseString(args[1])/1000);
+			
+			if (victim != null) {
+				
+				YamlConfiguration list = YamlData.load("bans");
+				
+				if (list.contains(victim.getUniqueId().toString())) {
+					sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getDisplayName()+"is already banned.");
+				} else {
+					// there are a lot of gay people in Cowboy Bebop
+					if (args[1].equalsIgnoreCase("-1") || args[1].equalsIgnoreCase("inf")) {
+						list.set(victim.getUniqueId().toString()+".time", "infinity");
+						list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
+						list.set(victim.getUniqueId().toString()+".reason", reason);
+						timeStr = "eternity";
+					} else {
+					
+						list.set(victim.getUniqueId().toString()+".reason", reason);
+						list.set(victim.getUniqueId().toString()+".time", timeInSeconds);
+						list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
+					}
+					
+					
+					YamlData.save("bans", list);
+					Bukkit.broadcastMessage(Main.SGprefix+victim.getDisplayName()+" has been banned for "+timeStr+" for "+reason);	
+					victim.kickPlayer(ChatColor.RED+"You have been banned for "+timeStr+" for "+reason);
+				}
+			} else {
+				sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player not found.");
+			}
 		}
 	}
 
@@ -98,9 +128,17 @@ public class GCCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 
-		if (cmd.getName().equalsIgnoreCase("sg") && sender.hasPermission("servergoverner")) {
+		if (cmd.getName().equalsIgnoreCase("sg")) {
 			sender.sendMessage(Main.SGprefix+"ServerGoverner Bukkit Plugin v1.0");
-			sender.sendMessage(Main.SGprefix+"Server management & moderation tool.");
+			sender.sendMessage(ChatColor.GRAY+"Server management & moderation tool.");
+			
+			if (args.length != 0 && args[0].equalsIgnoreCase("info")) {
+				if (args[1].equalsIgnoreCase("time")) {
+					sender.sendMessage(ChatColor.GRAY+"TimeFormats are specified as a number, and then a unit of time:");
+					sender.sendMessage(ChatColor.GRAY+"1h30m, 12h, 15m, 2d5h. These are all acceptable TimeFormats");
+					sender.sendMessage(ChatColor.GRAY+"-1 can be given to achieve forever.");
+				}
+			}
 		}
 
 		if (cmd.getName().equalsIgnoreCase("kick")) {

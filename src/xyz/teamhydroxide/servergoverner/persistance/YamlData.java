@@ -89,26 +89,7 @@ public class YamlData {
 	}
 	
 	public static void banPlayer(String name, String reason, CommandSender banner) {
-		Player victim = Bukkit.getServer().getPlayer(name);
-		if (victim != null) {
-			if (isPlayerBanned(victim)) {
-				banner.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getDisplayName()+"is already banned.");
-			} else {
-				// there are a lot of gay people in Cowboy Bebop
-				YamlConfiguration list = load("bans");
-				
-				list.set(victim.getUniqueId().toString()+".reason", reason);
-				list.set(victim.getUniqueId().toString()+".time", -1);
-				list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
-				
-				
-				save("bans", list);
-				Bukkit.broadcastMessage(Main.SGprefix+victim.getDisplayName()+" has been permanently banned for "+reason);	
-				victim.kickPlayer(ChatColor.RED+"You have been permanently banned for "+reason);
-			}
-		} else {
-			banner.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player not found.");
-		}
+		
 		
 	}
 	

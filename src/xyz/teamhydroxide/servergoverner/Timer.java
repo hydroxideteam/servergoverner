@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import xyz.teamhydroxide.servergoverner.persistance.YamlData;
+import xyz.teamhydroxide.utils.StringManipulation;
 
 public class Timer {
 	@SuppressWarnings("deprecation")
@@ -14,18 +15,20 @@ public class Timer {
 				YamlConfiguration list = YamlData.load("bans");
 				
 				for (String key : list.getKeys(false)) {
-					list.set(key+".time", list.getInt(key+".time")-1);
+					if (StringManipulation.isInt(list.getString(key+".time"))) {
+						list.set(key+".time", list.getInt(key+".time")-1);
 
-					if (list.getInt(key+".time") == 0) {
-						
-						list.set(key, null);
-						Bukkit.getServer().broadcastMessage(Main.SGprefix+list.get(key+".name")+" has been unbanned.");
+						if (list.getInt(key+".time") == 0) {
+							
+							list.set(key, null);
+							Bukkit.getServer().broadcastMessage(Main.SGprefix+list.get(key+".name")+" has been unbanned.");
+						}
 					}
 				}
 				
 				YamlData.save("bans", list);
 				//for ()
 			}
-		}, 1200, 1200);
+		}, 20, 20);
 	}
 }

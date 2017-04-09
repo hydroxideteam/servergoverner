@@ -63,9 +63,6 @@ public class PlusCommands implements CommandExecutor {
 				}
 			}
 			
-		} else {
-			sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: Console cannot execute this command!");
-			
 		}
 		
 		
@@ -73,7 +70,7 @@ public class PlusCommands implements CommandExecutor {
 		
 		// Server resource data
 		if (cmd.getName().equalsIgnoreCase("lag")) {
-			sender.sendMessage(Main.SGprefix+"Memory Usage (In Megabytes):"+(Runtime.getRuntime().freeMemory()/1000000)+"mb / "+(Runtime.getRuntime().totalMemory()/1000000)+"mb");
+			sender.sendMessage(Main.SGprefix+"Memory: using "+(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/1000000+"mb out of "+(Runtime.getRuntime().totalMemory()/1000000)+"mb, "+(Runtime.getRuntime().freeMemory()/1000000)+"mb free.");
 		}
 		return true;
 	}

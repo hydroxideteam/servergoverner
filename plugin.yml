@@ -11,56 +11,58 @@ commands:
   sg:
     description: General Data about the plugin
     usage: *errmsg
-    permission: servergoverner
+    permission: sgov
   ban:
     description: Banning players
     usage: *errmsg
-    permission: servergoverner.ban
+    permission: sgov.admin.ban
   unban:
     description: Un-Banning players
     usage: *errmsg
-    permission: servergoverner.ban
+    permission: sgov.admin.ban
   kick:
     description: Removing players from the server
     usage: *errmsg
-    permission: servergoverner.kick
+    permission: sgov.admin.kick
   mute:
     description: Muting Players
     usage: *errmsg
-    permission: servergoverner.mute
+    permission: sgov.admin.mute
   jail:
     description: Jailing Players
     usage: *errmsg
-    permission: servergoverner.jail
+    permission: sgov.admin.jail
   god:
     description: Godding Players
     usage: *errmsg
-    permission: servergoverner.god
+    permission: sgov.admin.god
 
 
   quit:
     description: Leave the game.
     usage: *errmsg
     aliases: [q, leave]
+    permission: sgov.commandquit
   home:
     description: Teleport to your home bed.
     usage: *errmsg
     aliases: [h]
+    permission: sgov.home
   data:
     description: Provides information about a given player.
     usage: *errmsg
     aliases: [playerinfo]
-  sg:
-    description: ServerGoverner console.
-    usage: *errmsg
-    aliases: [server, governer, govnah]
+    permission: sgov.data
   local:
     description: local chat
     usage: *errmsg
+    permission: sgov.localchat
      
   friend:
     description: Friend system
     usage: *errmsg
+    permission: sgov.friend
   lag:
     description: Prints data about the server.
     usage: *errmsg
+    permission: sgov.lag
