@@ -1,6 +1,6 @@
 name: ServerGoverner
 main: xyz.teamhydroxide.servergoverner.Main
-version: 1.0
+version: 3
 website: http://teamhydroxide.org
 authors: [MadScientist, Xenon]
 
@@ -36,6 +36,10 @@ commands:
     description: Godding Players
     usage: *errmsg
     permission: sgov.admin.god
+  chatclear:
+    description: Clears chat
+    usage: *errmsg
+    permission: sgov.admin.chatclear
 
 
   quit:
@@ -57,11 +61,6 @@ commands:
     description: local chat
     usage: *errmsg
     permission: sgov.localchat
-     
-  friend:
-    description: Friend system
-    usage: *errmsg
-    permission: sgov.friend
   lag:
     description: Prints data about the server.
     usage: *errmsg
