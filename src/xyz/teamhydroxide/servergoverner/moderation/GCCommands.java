@@ -17,11 +17,8 @@ import xyz.teamhydroxide.utils.TimeParser;
 public class GCCommands implements CommandExecutor {
 
 
-	private void kick(CommandSender sender, String[] args) {
-		if (args.length == 0) {
-			sender.sendMessage(Main.SGprefix+"Remove users from server.");
-			sender.sendMessage(ChatColor.GRAY+"Usage: /sg kick <username> [reason]");
-		} else {
+	private boolean kick(CommandSender sender, String[] args) {
+		if (args.length > 0) {
 			Player kicked = Bukkit.getServer().getPlayer(args[0]);
 
 			if (kicked != null) {
@@ -34,15 +31,13 @@ public class GCCommands implements CommandExecutor {
 			} else {
 				sender.sendMessage(Main.SGprefix+ChatColor.RED+"Error: player not found.");
 			}
+			return true;
 		}
+		return false;
 	}
 
-	private void ban(CommandSender sender, String[] args) {
-		if (args.length == 0) {
-			sender.sendMessage(Main.SGprefix+"Banning of users.");
-			sender.sendMessage(ChatColor.GRAY+"Usage: /sg ban <username> <timeformat> <reason> ");
-			sender.sendMessage(ChatColor.GRAY+"For info on time formatting, see: /sg info time");
-		} else if (args.length >= 3) {
+	private boolean ban(CommandSender sender, String[] args) {
+		if (args.length >= 3) {
 			Player victim = Bukkit.getServer().getPlayer(args[0]);
 			String reason = StringManipulation.buildFromArray(args, 2);
 			String timeStr = args[1];
@@ -76,21 +71,22 @@ public class GCCommands implements CommandExecutor {
 			} else {
 				sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player not found.");
 			}
+			return true;
 		}
+		return false;
 	}
 	
-	private void chatClear(CommandSender sender, String[] args) {
+	private boolean chatClear(CommandSender sender, String[] args) {
 		for (int i = 1; i < 100; i++) {
 			Bukkit.getServer().broadcastMessage("   ");
 		}
 		Bukkit.getServer().broadcastMessage(ChatColor.DARK_AQUA+"Chat has been cleared.");
+		return true;
 	}
 
-	private void unban(CommandSender sender, String[] args) {
-		if (args.length == 0) {
+	private boolean unban(CommandSender sender, String[] args) {
+		if (args.length > 0) {
 
-
-		} else {
 			@SuppressWarnings("deprecation")
 			OfflinePlayer victim = Bukkit.getOfflinePlayer(args[0]);
 
@@ -110,26 +106,23 @@ public class GCCommands implements CommandExecutor {
 			} else {
 				sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player not found.");
 			}
+			return true;
 		}
+		return false;
 	}
 
-	private void god(CommandSender sender, String[] args) {
+	private boolean god(CommandSender sender, String[] args) {
 		sender.sendMessage(Main.SGprefix+"Godmode, makes players invincible & flying, but they cannot attack. (UNIMPLEMENTED)");
+		return true;
 	}
 
-	private void jail(CommandSender sender, String[] args) {
-		if (args.length == 0) {
-			sender.sendMessage(Main.SGprefix+"Jailing of users. (UNIMPLEMENTED)");
-			sender.sendMessage(ChatColor.GRAY+"Usage: /sg jail <username> [timeformat]");
-			sender.sendMessage(ChatColor.GRAY+"For info on time formatting, see: /sg info time");
-			sender.sendMessage(ChatColor.GRAY+"Server Admins, there's stuff in the config.yml about jailing you should read.");
-		} else {
-
-		}
+	private boolean jail(CommandSender sender, String[] args) {
+		return true;
 	}
 
-	private void mute(CommandSender sender, String[] args) {
+	private boolean mute(CommandSender sender, String[] args) {
 		sender.sendMessage(Main.SGprefix+"Muting players so they cannot chat. UNIMPLEMENTED)");
+		return true;
 	}
 
 	@Override
@@ -149,36 +142,27 @@ public class GCCommands implements CommandExecutor {
 			}
 		}
 
-		if (cmd.getName().equalsIgnoreCase("kick")) {
-			kick(sender, args);
-		}
+		if (cmd.getName().equalsIgnoreCase("kick"))
+			return kick(sender, args);
 
-		if (cmd.getName().equalsIgnoreCase("ban")) {
+		if (cmd.getName().equalsIgnoreCase("ban"))
+			return ban(sender, args);
 
-			ban(sender, args);
-		}
+		if (cmd.getName().equalsIgnoreCase("unban"))
+			return unban(sender, args);
 
-		if (cmd.getName().equalsIgnoreCase("unban")) {
+		if (cmd.getName().equalsIgnoreCase("jail"))
+			return jail(sender, args);
 
-			unban(sender, args);
+		if (cmd.getName().equalsIgnoreCase("mute"))
+			return mute(sender, args);
 
-		}
-
-		if (cmd.getName().equalsIgnoreCase("jail")) {
-			jail(sender, args);
-		}
-
-		if (cmd.getName().equalsIgnoreCase("mute")) {
-			mute(sender, args);
-		}
-
-		if (cmd.getName().equalsIgnoreCase("god")) {
-			god(sender, args);
-		}
+		if (cmd.getName().equalsIgnoreCase("god"))
+			return god(sender, args);
 		
-		if (cmd.getName().equalsIgnoreCase("chatclear")) {
-			chatClear(sender, args);
-		}
-		return true;
+		if (cmd.getName().equalsIgnoreCase("chatclear"))
+			return chatClear(sender, args);
+		
+		return false;
 	}
 }
