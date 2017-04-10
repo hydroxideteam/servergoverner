@@ -1,7 +1,6 @@
 package xyz.teamhydroxide.servergoverner.pluscommands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;

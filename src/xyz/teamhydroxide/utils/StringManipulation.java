@@ -1,9 +1,5 @@
 package xyz.teamhydroxide.utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class StringManipulation {
 	public static String buildFromArray(String[] args, int startpos) {
 		

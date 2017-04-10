@@ -1,16 +1,10 @@
 package xyz.teamhydroxide.servergoverner;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
-import xyz.teamhydroxide.servergoverner.friends.FriendCommand;
-import xyz.teamhydroxide.servergoverner.friends.FriendEvents;
 import xyz.teamhydroxide.servergoverner.moderation.GCCommands;
 import xyz.teamhydroxide.servergoverner.pluscommands.PlusCommands;
-import xyz.teamhydroxide.utils.StringManipulation;
 
 public class Main extends JavaPlugin{
 	
@@ -25,11 +19,7 @@ public class Main extends JavaPlugin{
 		
 		// Event Handlers
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-		getServer().getPluginManager().registerEvents(new FriendEvents(), this);
-		
-		
-		// Command Executors
-		getCommand("friend").setExecutor(new FriendCommand());
+
 		getCommand("sg").setExecutor(new GCCommands());
 		
 		PlusCommands plusCommands = new PlusCommands();
@@ -42,6 +32,7 @@ public class Main extends JavaPlugin{
 		getCommand("data").setExecutor(plusCommands);
 		
 		getCommand("sg").setExecutor(gcCommands);
+		getCommand("chatclear").setExecutor(gcCommands);
 		getCommand("ban").setExecutor(gcCommands);
 		getCommand("kick").setExecutor(gcCommands);
 		getCommand("unban").setExecutor(gcCommands);

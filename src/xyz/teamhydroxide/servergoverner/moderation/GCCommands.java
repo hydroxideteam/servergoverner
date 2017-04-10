@@ -78,12 +78,20 @@ public class GCCommands implements CommandExecutor {
 			}
 		}
 	}
+	
+	private void chatClear(CommandSender sender, String[] args) {
+		for (int i = 1; i < 100; i++) {
+			Bukkit.getServer().broadcastMessage("   ");
+		}
+		Bukkit.getServer().broadcastMessage(ChatColor.DARK_AQUA+"Chat has been cleared.");
+	}
 
 	private void unban(CommandSender sender, String[] args) {
 		if (args.length == 0) {
 
 
 		} else {
+			@SuppressWarnings("deprecation")
 			OfflinePlayer victim = Bukkit.getOfflinePlayer(args[0]);
 
 			if (victim != null) {
@@ -166,6 +174,10 @@ public class GCCommands implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("god")) {
 			god(sender, args);
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("chatclear")) {
+			chatClear(sender, args);
 		}
 		return true;
 	}
