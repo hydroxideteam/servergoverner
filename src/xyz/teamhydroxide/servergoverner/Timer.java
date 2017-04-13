@@ -3,8 +3,8 @@ package xyz.teamhydroxide.servergoverner;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import xyz.teamhydroxide.servergoverner.persistance.YamlData;
 import xyz.teamhydroxide.utils.StringManipulation;
+import xyz.teamhydroxide.utils.YamlData;
 
 public class Timer {
 	@SuppressWarnings("deprecation")
