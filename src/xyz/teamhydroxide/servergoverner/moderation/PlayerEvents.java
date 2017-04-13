@@ -23,7 +23,7 @@ public class PlayerEvents implements Listener {
 	public void join(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		
-		if (Lists.isPlayerBanned(player)) {
+		if (Lists.isBanned(player)) {
 			player.kickPlayer(ChatColor.RED+"You are banned from this server!");
 		}
 	}

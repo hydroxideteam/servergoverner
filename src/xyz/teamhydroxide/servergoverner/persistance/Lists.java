@@ -4,12 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+
+import xyz.teamhydroxide.utils.YamlData;
 
 public class Lists {
 	public static HashMap<Player, Integer> muted = new HashMap();
 	public static ArrayList<Player> godded = new ArrayList<Player>();
 	
+	
+	public static boolean isBanned(Player player) {
+		YamlConfiguration banlist = YamlData.load("bans");
+		
+		if (banlist.contains(player.getUniqueId().toString())) {
+			return true;
+		}
+		return false;
+	}
 	
 	public static boolean isMuted(Player player) {
 		if (muted.containsKey(player)) {
