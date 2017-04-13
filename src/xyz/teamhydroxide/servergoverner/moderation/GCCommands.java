@@ -10,9 +10,10 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.Main;
-import xyz.teamhydroxide.servergoverner.persistance.YamlData;
+import xyz.teamhydroxide.servergoverner.persistance.Lists;
 import xyz.teamhydroxide.utils.StringManipulation;
 import xyz.teamhydroxide.utils.TimeParser;
+import xyz.teamhydroxide.utils.YamlData;
 
 public class GCCommands implements CommandExecutor {
 
@@ -112,7 +113,11 @@ public class GCCommands implements CommandExecutor {
 	}
 
 	private boolean god(CommandSender sender, String[] args) {
-		sender.sendMessage(Main.SGprefix+"Godmode, makes players invincible & flying, but they cannot attack. (UNIMPLEMENTED)");
+		if (sender instanceof Player) {
+			Player player = (Player) sender;
+			Lists.setGodded(player, !Lists.isGodded(player));
+			
+		}
 		return true;
 	}
 
@@ -140,6 +145,7 @@ public class GCCommands implements CommandExecutor {
 					sender.sendMessage(ChatColor.GRAY+"-1 can be given to achieve forever.");
 				}
 			}
+			return true;
 		}
 
 		if (cmd.getName().equalsIgnoreCase("kick"))
