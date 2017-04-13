@@ -3,6 +3,8 @@
 ## Bans, Jailing, Muting, etc. ##
 
 
+
+max
 defaultbantime: -1 # minutes player gets banned by default
 
 defaultjailtime: 30 # minutes player gets jailed by default
@@ -15,7 +17,7 @@ mutejailedplayers: false # are jailed players muted?
 
 defaultmutetime: 5 # minutes player gets muted by default
 
-cangodmodeattack: false # can players in godmode attack other players
-
+canGoddedAttackPlayers: false # can players in godmode attack other players
+canGoddedAttackMonsters: true
 
 # For the values above, use -1 if you want the default time to be forever.
