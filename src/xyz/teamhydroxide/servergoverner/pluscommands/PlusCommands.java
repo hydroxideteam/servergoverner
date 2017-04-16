@@ -25,6 +25,9 @@ public class PlusCommands implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			
+			if (cmd.getName().equalsIgnoreCase("fly")) {
+				player.setFlying(!player.isFlying());
+			}
 			// leaving server via command
 			if (cmd.getName().equalsIgnoreCase("quit")) { player.kickPlayer("You have left the server."); }
 			

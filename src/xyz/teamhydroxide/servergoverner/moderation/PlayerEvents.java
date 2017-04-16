@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import xyz.teamhydroxide.servergoverner.Main;
 import xyz.teamhydroxide.servergoverner.persistance.Lists;
-import xyz.teamhydroxide.utils.YamlData;
 
 public class PlayerEvents implements Listener {
 	

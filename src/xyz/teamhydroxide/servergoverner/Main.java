@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.moderation.GCCommands;
 import xyz.teamhydroxide.servergoverner.moderation.PlayerEvents;
+import xyz.teamhydroxide.servergoverner.persistance.CustomMessages;
 import xyz.teamhydroxide.servergoverner.pluscommands.PlusCommands;
 
 public class Main extends JavaPlugin{
@@ -20,6 +21,7 @@ public class Main extends JavaPlugin{
 		
 		// Event Handlers
 		getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
+		getServer().getPluginManager().registerEvents(new CustomMessages(), this);
 
 		getCommand("sg").setExecutor(new GCCommands());
 		

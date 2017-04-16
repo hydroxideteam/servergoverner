@@ -7,7 +7,6 @@ authors: [MadScientist, Xenon]
 anchored_content: &errmsg "[SG] ERROR: invalid syntax, see /<command>!"
 
 commands:
-
   sg:
     description: General Data about the plugin
     usage: *errmsg
@@ -65,3 +64,7 @@ commands:
     description: Prints data about the server.
     usage: *errmsg
     permission: sgov.lag
+  fly:
+    description: Allows flying
+    usage: *errmsg
+    permission: sgov.fly

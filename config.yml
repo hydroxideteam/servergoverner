@@ -4,7 +4,6 @@
 
 
 
-max
 defaultbantime: -1 # minutes player gets banned by default
 
 defaultjailtime: 30 # minutes player gets jailed by default
