@@ -1,10 +1,12 @@
 package xyz.teamhydroxide.servergoverner.moderation;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -122,6 +124,18 @@ public class GCCommands implements CommandExecutor {
 	}
 
 	private boolean jail(CommandSender sender, String[] args) {
+		
+		
+		Player victim = Bukkit.getPlayer(args[0]);
+		FileConfiguration config = Main.plugin.getConfig();
+		double x = config.getDouble("jailPosition.x");
+		double y = config.getDouble("jailPosition.y");
+		double z = config.getDouble("jailPosition.z");
+		
+		Location jailLoc = new Location(victim.getWorld(), x, y, z);
+		
+		victim.teleport(jailLoc);
+		
 		return true;
 	}
 
