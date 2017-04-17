@@ -1,4 +1,4 @@
-package xyz.teamhydroxide.servergoverner.moderation;
+package xyz.teamhydroxide.servergoverner.events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Monster;
@@ -10,8 +10,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import xyz.teamhydroxide.servergoverner.Main;
-import xyz.teamhydroxide.servergoverner.persistance.BanManager;
-import xyz.teamhydroxide.servergoverner.persistance.Lists;
+import xyz.teamhydroxide.servergoverner.statusmanagers.BanManager;
+import xyz.teamhydroxide.servergoverner.statusmanagers.Lists;
+import xyz.teamhydroxide.servergoverner.statusmanagers.MuteManager;
 
 public class PlayerEvents implements Listener {
 	
@@ -31,8 +32,8 @@ public class PlayerEvents implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player player = e.getPlayer();
-		if (Lists.isMuted(player)) {
-			player.sendMessage(ChatColor.RED+"ERROR: you are muted for "+Lists.getMutedTime(player)+" seconds.");
+		if (MuteManager.isMuted(player)) {
+			player.sendMessage(ChatColor.RED+"ERROR: you are muted for "+MuteManager.getMutedTime(player)+" seconds.");
 			e.setCancelled(true);
 		}
 	}

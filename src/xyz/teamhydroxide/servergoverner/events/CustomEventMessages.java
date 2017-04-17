@@ -1,4 +1,4 @@
-package xyz.teamhydroxide.servergoverner.persistance;
+package xyz.teamhydroxide.servergoverner.events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,10 +10,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import xyz.teamhydroxide.utils.YamlData;
 
-public class CustomMessages implements Listener {
+public class CustomEventMessages implements Listener {
 
 
-	public CustomMessages() {
+	public CustomEventMessages() {
 
 	}
 	

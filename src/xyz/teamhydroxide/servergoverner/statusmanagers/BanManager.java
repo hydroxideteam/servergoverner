@@ -1,4 +1,4 @@
-package xyz.teamhydroxide.servergoverner.persistance;
+package xyz.teamhydroxide.servergoverner.statusmanagers;
 
 import java.util.UUID;
 
@@ -27,6 +27,7 @@ public class BanManager {
 	
 	public static void banPlayer(Player victim, String timeGiven, String reason) {
 		YamlConfiguration list = YamlData.load("bans");
+
 		
 		list.set(victim.getUniqueId().toString()+".reason", reason);
 		list.set(victim.getUniqueId().toString()+".time", timeGiven);

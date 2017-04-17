@@ -1,4 +1,4 @@
-package xyz.teamhydroxide.servergoverner.pluscommands;
+package xyz.teamhydroxide.servergoverner.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

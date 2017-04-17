@@ -1,4 +1,4 @@
-package xyz.teamhydroxide.servergoverner.moderation;
+package xyz.teamhydroxide.servergoverner.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,10 +12,9 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.Main;
-import xyz.teamhydroxide.servergoverner.persistance.BanManager;
-import xyz.teamhydroxide.servergoverner.persistance.Lists;
+import xyz.teamhydroxide.servergoverner.statusmanagers.BanManager;
+import xyz.teamhydroxide.servergoverner.statusmanagers.GodManager;
 import xyz.teamhydroxide.utils.StringManipulation;
-import xyz.teamhydroxide.utils.TimeParser;
 import xyz.teamhydroxide.utils.YamlData;
 
 public class GCCommands implements CommandExecutor {
@@ -45,7 +44,7 @@ public class GCCommands implements CommandExecutor {
 			Player victim = Bukkit.getServer().getPlayer(args[0]);
 			String reason = StringManipulation.buildFromArray(args, 2);
 			String timeStr = args[1];
-			int timeInSeconds = (int)(TimeParser.parseString(args[1])/1000);
+			//int timeInSeconds = (int)(TimeParser.parseString(args[1])/1000);
 			
 			if (victim != null) {
 			
@@ -102,7 +101,7 @@ public class GCCommands implements CommandExecutor {
 	private boolean god(CommandSender sender, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			Lists.setGodded(player, !Lists.isGodded(player));
+			GodManager.godPlayer(player, !GodManager.isPlayerGodded(player));
 			
 		}
 		return true;
@@ -134,7 +133,7 @@ public class GCCommands implements CommandExecutor {
 			Player poopoopeepee = Bukkit.getServer().getPlayer(args[0]);
 			
 			if (poopoopeepee != null) {
-				Lists.addToMuted(poopoopeepee, Integer.parseInt(args[1]));
+				//Lists.addToMuted(poopoopeepee, Integer.parseInt(args[1]));
 				
 				return true;
 			}
