@@ -126,8 +126,17 @@ public class GCCommands implements CommandExecutor {
 	}
 
 	private boolean mute(CommandSender sender, String[] args) {
-		sender.sendMessage(Main.SGprefix+"Muting players so they cannot chat. UNIMPLEMENTED)");
-		return true;
+		if (args.length > 0) {
+			Player poopoopeepee = Bukkit.getServer().getPlayer(args[0]);
+			
+			if (poopoopeepee != null) {
+				Lists.addToMuted(poopoopeepee, Integer.parseInt(args[1]));
+				
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 	@Override
