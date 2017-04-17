@@ -10,6 +10,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import xyz.teamhydroxide.servergoverner.Main;
+import xyz.teamhydroxide.servergoverner.persistance.BanManager;
 import xyz.teamhydroxide.servergoverner.persistance.Lists;
 
 public class PlayerEvents implements Listener {
@@ -22,7 +23,7 @@ public class PlayerEvents implements Listener {
 	public void join(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		
-		if (Lists.isBanned(player)) {
+		if (BanManager.isBanned(player)) {
 			player.kickPlayer(ChatColor.RED+"You are banned from this server!");
 		}
 	}
