@@ -9,7 +9,7 @@ import xyz.teamhydroxide.utils.YamlData;
 
 public class BanManager {
 	
-	public static boolean isBanned(UUID id) {
+	public static boolean isPlayerBanned(UUID id) {
 		YamlConfiguration banlist = YamlData.load("bans");
 		if (banlist.contains(id.toString())) {
 			return true;
@@ -17,12 +17,20 @@ public class BanManager {
 		return false;
 	}
 	
-	public static boolean isBanned(Player player) {
-		return isBanned(player.getUniqueId());
+	public static boolean isPlayerBanned(Player player) {
+		return isPlayerBanned(player.getUniqueId());
 	}
 	
-	public static int getSecondsBanned(Player player) {
-		return 0;
+	public static int getPlayerBanTime(Player player) {
+		YamlConfiguration banlist = YamlData.load("bans");
+		
+		return banlist.getInt(player.getUniqueId().toString()+".time");
+	}
+	
+	public static String getPlayerBanReason(Player player) {
+		YamlConfiguration banlist = YamlData.load("bans");
+		
+		return banlist.getString(player.getUniqueId().toString()+".reason");
 	}
 	
 	public static void banPlayer(Player victim, String timeGiven, String reason) {
