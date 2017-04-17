@@ -13,14 +13,7 @@ public class Lists {
 	public static ArrayList<Player> godded = new ArrayList<Player>();
 	
 	
-	public static boolean isBanned(Player player) {
-		YamlConfiguration banlist = YamlData.load("bans");
-		
-		if (banlist.contains(player.getUniqueId().toString())) {
-			return true;
-		}
-		return false;
-	}
+
 	
 	public static boolean isMuted(Player player) {
 		if (muted.containsKey(player)) {

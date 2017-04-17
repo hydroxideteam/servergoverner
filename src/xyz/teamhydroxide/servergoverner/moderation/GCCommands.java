@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 import xyz.teamhydroxide.servergoverner.Main;
+import xyz.teamhydroxide.servergoverner.persistance.BanManager;
 import xyz.teamhydroxide.servergoverner.persistance.Lists;
 import xyz.teamhydroxide.utils.StringManipulation;
 import xyz.teamhydroxide.utils.TimeParser;
@@ -47,27 +48,12 @@ public class GCCommands implements CommandExecutor {
 			int timeInSeconds = (int)(TimeParser.parseString(args[1])/1000);
 			
 			if (victim != null) {
+			
 				
-				YamlConfiguration list = YamlData.load("bans");
-				
-				if (list.contains(victim.getUniqueId().toString())) {
+				if (BanManager.isBanned(victim)) {
 					sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getDisplayName()+"is already banned.");
 				} else {
-					// there are a lot of gay people in Cowboy Bebop
-					if (args[1].equalsIgnoreCase("-1") || args[1].equalsIgnoreCase("inf")) {
-						list.set(victim.getUniqueId().toString()+".time", "infinity");
-						list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
-						list.set(victim.getUniqueId().toString()+".reason", reason);
-						timeStr = "eternity";
-					} else {
-					
-						list.set(victim.getUniqueId().toString()+".reason", reason);
-						list.set(victim.getUniqueId().toString()+".time", timeInSeconds);
-						list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
-					}
-					
-					
-					YamlData.save("bans", list);
+					BanManager.banPlayer(victim, timeStr, reason);
 					Bukkit.broadcastMessage(Main.SGprefix+victim.getDisplayName()+" has been banned for "+timeStr+" for "+reason);	
 					victim.kickPlayer(ChatColor.RED+"You have been banned for "+timeStr+" for "+reason);
 				}
@@ -103,7 +89,6 @@ public class GCCommands implements CommandExecutor {
 					Bukkit.broadcastMessage(Main.SGprefix+victim.getName()+" has been unbanned");	
 
 				} else {
-					// there are a lot of gay people in Cowboy Bebop
 					sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getName()+" not found in ban records.");
 				}
 			} else {
@@ -125,18 +110,23 @@ public class GCCommands implements CommandExecutor {
 
 	private boolean jail(CommandSender sender, String[] args) {
 		
+		if (args.length > 0) {
+			Player victim = Bukkit.getPlayer(args[0]);
+			
+			if (victim != null) {
+				FileConfiguration config = Main.plugin.getConfig();
+				double x = config.getDouble("jailPosition.x");
+				double y = config.getDouble("jailPosition.y");
+				double z = config.getDouble("jailPosition.z");
 		
-		Player victim = Bukkit.getPlayer(args[0]);
-		FileConfiguration config = Main.plugin.getConfig();
-		double x = config.getDouble("jailPosition.x");
-		double y = config.getDouble("jailPosition.y");
-		double z = config.getDouble("jailPosition.z");
+				Location jailLoc = new Location(victim.getWorld(), x, y, z);
 		
-		Location jailLoc = new Location(victim.getWorld(), x, y, z);
+				victim.teleport(jailLoc);
+				return true;
+			}
+		}
 		
-		victim.teleport(jailLoc);
-		
-		return true;
+		return false;
 	}
 
 	private boolean mute(CommandSender sender, String[] args) {
