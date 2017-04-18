@@ -33,15 +33,19 @@ public class BanManager {
 		return banlist.getString(player.getUniqueId().toString()+".reason");
 	}
 	
-	public static void banPlayer(Player victim, String timeGiven, String reason) {
+	public static void banPlayer(Player victim, int time, String reason) {
 		YamlConfiguration list = YamlData.load("bans");
 
 		
 		list.set(victim.getUniqueId().toString()+".reason", reason);
-		list.set(victim.getUniqueId().toString()+".time", timeGiven);
+		list.set(victim.getUniqueId().toString()+".time", time);
 		list.set(victim.getUniqueId().toString()+".name", victim.getDisplayName());
 		
 		
 		YamlData.save("bans", list);
+	}
+	
+	public static void unBanPlayer(Player victim) {
+		
 	}
 }

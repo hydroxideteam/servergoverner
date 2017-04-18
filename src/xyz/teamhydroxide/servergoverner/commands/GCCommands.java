@@ -15,6 +15,7 @@ import xyz.teamhydroxide.servergoverner.Main;
 import xyz.teamhydroxide.servergoverner.statusmanagers.BanManager;
 import xyz.teamhydroxide.servergoverner.statusmanagers.GodManager;
 import xyz.teamhydroxide.utils.StringManipulation;
+import xyz.teamhydroxide.utils.TimeParser;
 import xyz.teamhydroxide.utils.YamlData;
 
 public class GCCommands implements CommandExecutor {
@@ -44,18 +45,11 @@ public class GCCommands implements CommandExecutor {
 			Player victim = Bukkit.getServer().getPlayer(args[0]);
 			String reason = StringManipulation.buildFromArray(args, 2);
 			String timeStr = args[1];
-			//int timeInSeconds = (int)(TimeParser.parseString(args[1])/1000);
 			
 			if (victim != null) {
-			
-				
-				if (BanManager.isBanned(victim)) {
-					sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player "+victim.getDisplayName()+"is already banned.");
-				} else {
-					BanManager.banPlayer(victim, timeStr, reason);
-					Bukkit.broadcastMessage(Main.SGprefix+victim.getDisplayName()+" has been banned for "+timeStr+" for "+reason);	
-					victim.kickPlayer(ChatColor.RED+"You have been banned for "+timeStr+" for "+reason);
-				}
+				BanManager.banPlayer(victim, (int)TimeParser.parseString(timeStr), reason);
+				Bukkit.broadcastMessage(Main.SGprefix+victim.getDisplayName()+" has been banned for "+timeStr+" for "+reason);	
+				victim.kickPlayer(ChatColor.RED+"You have been banned for "+timeStr+" for "+reason);
 			} else {
 				sender.sendMessage(Main.SGprefix+ChatColor.RED+"ERROR: player not found.");
 			}
@@ -101,7 +95,7 @@ public class GCCommands implements CommandExecutor {
 	private boolean god(CommandSender sender, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			GodManager.godPlayer(player, !GodManager.isPlayerGodded(player));
+			GodManager.godPlayer(player);
 			
 		}
 		return true;

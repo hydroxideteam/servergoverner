@@ -1,22 +1,36 @@
-### ServerGoverner Configuration File ###
+### ServerGoverner Configuration File
 
-## Bans, Jailing, Muting, etc. ##
+### Table of Contents:
+## Administration
+#  Banning
+#  Muting
+#  Jailing
+#  Godding
 
 
 
-defaultbantime: -1 # minutes player gets banned by default
+### Administration ### 
+## Banning ##
+defaultBanTime: "1d"
+maxBanTime: "30d"
+defaultBanReason: "&4You have broken the rules!"
 
-defaultjailtime: 30 # minutes player gets jailed by default
-canjailedplayerbreak: false # is a jailed player allowed to remove blocks? (NOTE: if you have plugin like worldguard you should enable this)
-jailposition: # the position a jailed player will be teleported to
-  xpos: 5
-  ypos: 155
-  zpos: 555
-mutejailedplayers: false # are jailed players muted?
+## Muting ##
+blockCommandsWhileMuted:
+- say
+- me
+- local
+- msg
 
-defaultmutetime: 5 # minutes player gets muted by default
+## Jailing ##
+jailPosition:
+  x: 000
+  y: 100
+  z: 000
+setJailedInAdventureMode: false
+muteJailed: false
 
-canGoddedAttackPlayers: false # can players in godmode attack other players
-canGoddedAttackMonsters: true
-
-# For the values above, use -1 if you want the default time to be forever.
+## Godding ##
+# the below two = <players, all, none>
+preventGoddedDamage: all
+preventGoddedAttack: players

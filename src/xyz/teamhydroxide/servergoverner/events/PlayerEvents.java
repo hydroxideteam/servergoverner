@@ -9,9 +9,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import com.google.common.collect.Lists;
+
 import xyz.teamhydroxide.servergoverner.Main;
 import xyz.teamhydroxide.servergoverner.statusmanagers.BanManager;
-import xyz.teamhydroxide.servergoverner.statusmanagers.Lists;
+import xyz.teamhydroxide.servergoverner.statusmanagers.GodManager;
 import xyz.teamhydroxide.servergoverner.statusmanagers.MuteManager;
 
 public class PlayerEvents implements Listener {
@@ -24,7 +26,7 @@ public class PlayerEvents implements Listener {
 	public void join(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		
-		if (BanManager.isBanned(player)) {
+		if (BanManager.isPlayerBanned(player)) {
 			player.kickPlayer(ChatColor.RED+"You are banned from this server!");
 		}
 	}
@@ -32,8 +34,8 @@ public class PlayerEvents implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player player = e.getPlayer();
-		if (MuteManager.isMuted(player)) {
-			player.sendMessage(ChatColor.RED+"ERROR: you are muted for "+MuteManager.getMutedTime(player)+" seconds.");
+		if (MuteManager.isPlayerMuted(player)) {
+			player.sendMessage(ChatColor.RED+"ERROR: you are muted for "+MuteManager.getPlayerMuteTime(player)+" seconds.");
 			e.setCancelled(true);
 		}
 	}
@@ -44,7 +46,7 @@ public class PlayerEvents implements Listener {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			
-			if (Lists.isGodded(p)) {
+			if (GodManager.isPlayerGodded(p)) {
 				e.setCancelled(true);
 			}
 		}
@@ -52,7 +54,7 @@ public class PlayerEvents implements Listener {
 		if (e.getDamager() instanceof Player) {
 			Player p = (Player) e.getDamager();
 			
-			if (Lists.isGodded(p)) {
+			if (GodManager.isPlayerGodded(p)) {
 				if (e.getEntity() instanceof Player && Main.plugin.getConfig().getBoolean("canGoddedAttackPlayers") == false) {
 					p.sendMessage("ERROR: you cannot attack whilst godded.");
 					e.setCancelled(true);
