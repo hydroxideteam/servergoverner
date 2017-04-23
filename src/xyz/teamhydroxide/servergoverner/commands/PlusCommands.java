@@ -27,9 +27,13 @@ public class PlusCommands implements CommandExecutor {
 			
 			if (cmd.getName().equalsIgnoreCase("fly")) {
 				player.setFlying(!player.isFlying());
+				return true;
 			}
 			// leaving server via command
-			if (cmd.getName().equalsIgnoreCase("quit")) { player.kickPlayer("You have left the server."); }
+			if (cmd.getName().equalsIgnoreCase("quit")) {
+				player.kickPlayer("You have left the server.");
+				return true;
+			}
 			
 			// teleporting to bed
 			if (cmd.getName().equalsIgnoreCase("home")) {
@@ -43,6 +47,7 @@ public class PlusCommands implements CommandExecutor {
 					player.playSound(bedLoc, Sound.ENTITY_ENDERMEN_HURT, 4, 1);
 					player.sendMessage(ChatColor.DARK_GRAY+"Your bed has been missing or obstructed");
 				}
+				return true;
 			}
 			
 			// dump data about player
@@ -52,6 +57,7 @@ public class PlusCommands implements CommandExecutor {
 				
 				player.sendMessage(ChatColor.RED+"Position: "+position.getBlockX()+", "+position.getBlockY()+", "+position.getBlockZ());
 				player.sendMessage(ChatColor.RED+"Health: "+health);
+				return true;
 			}
 			
 			// local chat
@@ -63,6 +69,7 @@ public class PlusCommands implements CommandExecutor {
 						other.sendMessage(ChatColor.YELLOW+"Local "+ChatColor.WHITE+"<"+player.getDisplayName()+"> "+message);
 					}
 				}
+				return true;
 			}
 			
 		}
@@ -73,8 +80,9 @@ public class PlusCommands implements CommandExecutor {
 		// Server resource data
 		if (cmd.getName().equalsIgnoreCase("lag")) {
 			sender.sendMessage(Main.SGprefix+"Memory: using "+(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/1000000+"mb out of "+(Runtime.getRuntime().totalMemory()/1000000)+"mb, "+(Runtime.getRuntime().freeMemory()/1000000)+"mb free.");
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 }

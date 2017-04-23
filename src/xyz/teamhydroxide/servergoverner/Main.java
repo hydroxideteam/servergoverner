@@ -39,6 +39,7 @@ public class Main extends JavaPlugin {
 		getCommand("home").setExecutor(plusCommands);
 		getCommand("local").setExecutor(plusCommands);
 		getCommand("data").setExecutor(plusCommands);
+		getCommand("fly").setExecutor(plusCommands);
 
 		getCommand("sg").setExecutor(gcCommands);
 		getCommand("chatclear").setExecutor(gcCommands);

@@ -1,6 +1,6 @@
 name: ServerGoverner
 main: xyz.teamhydroxide.servergoverner.Main
-version: 3
+version: 4
 website: http://teamhydroxide.org
 authors: [MadScientist, Xenon]
 
